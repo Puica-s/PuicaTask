@@ -155,6 +155,93 @@ As tarefas são armazenadas utilizando LocalStorage, permitindo manter os dados 
 
 ---
 
+# Histórias de Usuário
+
+## US01 — Cadastro de Tarefas
+
+**Como** usuário,
+**quero** cadastrar tarefas,
+**para** organizar minhas atividades diárias.
+
+---
+
+## US02 — Listagem de Tarefas
+
+**Como** usuário,
+**quero** visualizar minhas tarefas em uma lista,
+**para** acompanhar minhas atividades cadastradas.
+
+---
+
+## US03 — Conclusão de Tarefas
+
+**Como** usuário,
+**quero** marcar tarefas como concluídas,
+**para** acompanhar meu progresso.
+
+---
+
+## US04 — Edição de Tarefas
+
+**Como** usuário,
+**quero** editar tarefas existentes,
+**para** corrigir ou atualizar informações.
+
+---
+
+## US05 — Exclusão de Tarefas
+
+**Como** usuário,
+**quero** excluir tarefas,
+**para** remover atividades que não são mais necessárias.
+
+---
+
+## US06 — Filtro de Tarefas
+
+**Como** usuário,
+**quero** filtrar tarefas por status,
+**para** visualizar apenas tarefas concluídas ou pendentes.
+
+---
+
+# Critérios de Aceitação
+
+## US01 — Cadastro de Tarefas
+
+* O usuário deve conseguir adicionar uma nova tarefa.
+* A tarefa cadastrada deve aparecer na lista imediatamente.
+
+## US02 — Listagem de Tarefas
+
+* O sistema deve exibir todas as tarefas cadastradas.
+* As tarefas devem permanecer visíveis após atualização da página.
+
+## US03 — Conclusão de Tarefas
+
+* O usuário deve conseguir marcar uma tarefa como concluída.
+* Tarefas concluídas devem possuir diferenciação visual.
+
+## US04 — Edição de Tarefas
+
+* O usuário deve conseguir alterar o texto de uma tarefa existente.
+* As alterações devem ser salvas corretamente.
+
+## US05 — Exclusão de Tarefas
+
+* O usuário deve conseguir remover tarefas da lista.
+* A tarefa excluída não deve mais aparecer na interface.
+
+## US06 — Filtro de Tarefas
+
+* O usuário deve conseguir visualizar:
+
+  * Todas as tarefas;
+  * Apenas tarefas concluídas;
+  * Apenas tarefas pendentes.
+
+---
+
 # Resultados Obtidos
 
 O MVP atingiu os objetivos propostos, apresentando funcionamento adequado das funcionalidades principais.
