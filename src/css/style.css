@@ -1,0 +1,35 @@
+@import "variable.css";
+
+body{
+    background-color: var(--bg-primary);
+}
+
+.container{
+    color: var(--text-primary);
+    font-family: var(--text-font);
+    height: 100vh;
+
+    header{
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0 20px 0;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        
+        .logo img{
+            width: 50px;
+        }
+    }
+
+    main{
+        height: 100vh;
+        margin-top: 70px;
+        
+    }
+}
