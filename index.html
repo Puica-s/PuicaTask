@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PuicaTask</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #0f172a;
+        --surface: #1a2333;
+        --card: #232f45;
+        --border: #344155;
+        --primary: #e53935;
+        --accent: #f59e0b;
+        --success: #43a047;
+        --blue: #1e3a5f;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+      }
+      body {
+        background: var(--bg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+      }
+      .app {
+        width: 100%;
+        max-width: 420px;
+      }
+      .header {
+        margin-bottom: 24px;
+      }
+      .logo {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 14px;
+        border-radius: 22px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      h1 {
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 6px;
+        letter-spacing: -0.5px;
+      }
+      .subtitle {
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .task-form {
+        margin-bottom: 18px;
+      }
+      .input-group {
+        display: flex;
+        gap: 10px;
+      }
+      input {
+        flex: 1;
+        height: 52px;
+        border: none;
+        border-radius: 16px;
+        background: var(--surface);
+        color: var(--text);
+        padding: 0 16px;
+        font-size: 15px;
+        outline: none;
+        border: 1px solid transparent;
+        transition: 0.2s;
+      }
+      input:focus {
+        border-color: var(--primary);
+      }
+      input::placeholder {
+        color: var(--muted);
+      }
+      .add-btn {
+        width: 52px;
+        height: 52px;
+        border: none;
+        border-radius: 16px;
+        background: var(--primary);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .add-btn:active {
+        transform: scale(0.96);
+      }
+      .filters {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      .filter-btn {
+        flex: 1;
+        height: 42px;
+        border: none;
+        border-radius: 14px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .filter-btn.active {
+        background: var(--primary);
+        color: white;
+      }
+      .tasks {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .task-card {
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 16px;
+        animation: fade 0.2s ease;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .task-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .check {
+        min-width: 22px;
+        min-height: 22px;
+        border-radius: 8px;
+        border: 2px solid var(--border);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2px;
+        font-size: 12px;
+        font-weight: bold;
+        transition: 0.2s;
+      }
+      .done .check {
+        background: var(--success);
+        border-color: var(--success);
+      }
+      .task-text {
+        flex: 1;
+        font-size: 15px;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+      .done .task-text {
+        opacity: 0.45;
+        text-decoration: line-through;
+      }
+      .task-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      .task-actions button {
+        flex: 1;
+        height: 40px;
+        border: none;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .task-actions button:active {
+        transform: scale(0.97);
+      }
+      .edit-btn {
+        background: var(--blue);
+      }
+      .delete-btn {
+        background: var(--primary);
+      }
+      .empty {
+        margin-top: 40px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="header">
+        <div class="logo">
+          <img src="src/img/logo-puica.png" alt="PuicaTask" />
+        </div>
+        <h1>PuicaTask</h1>
+        <p class="subtitle">Organize tarefas de forma simples</p>
+      </div>
+      <div class="task-form">
+        <div class="input-group">
+          <input type="text" id="taskInput" placeholder="Nova tarefa" />
+          <button class="add-btn" id="addTaskBtn">+</button>
+        </div>
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterTasks('all', this)">
+          Todas
+        </button>
+        <button class="filter-btn" onclick="filterTasks('pending', this)">
+          Pendentes
+        </button>
+        <button class="filter-btn" onclick="filterTasks('completed', this)">
+          Feitas
+        </button>
+      </div>
+      <div class="tasks" id="taskList"></div>
+      <div class="empty" id="emptyMessage">Nenhuma tarefa</div>
+    </div>
+    <script>
+      const taskInput = document.getElementById("taskInput");
+      const addTaskBtn = document.getElementById("addTaskBtn");
+      const taskList = document.getElementById("taskList");
+      const emptyMessage = document.getElementById("emptyMessage");
+      let tasks = [];
+      document.addEventListener("DOMContentLoaded", () => {
+        const saved = localStorage.getItem("puicaTasks");
+        if (saved) {
+          tasks = JSON.parse(saved);
+        }
+        renderTasks();
+      });
+
+      addTaskBtn.addEventListener("click", addTask);
+      taskInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          addTask();
+        }
+      });
+
+      function addTask() {
+        const text = taskInput.value.trim();
+        if (text === "") {
+          return;
+        }
+        tasks.push({
+          id: Date.now(),
+          text: text,
+          completed: false,
+        });
+        taskInput.value = "";
+        saveTasks();
+        renderTasks();
+      }
+
+      function renderTasks(filtered = tasks) {
+        taskList.innerHTML = "";
+        emptyMessage.style.display = filtered.length === 0 ? "block" : "none";
+        filtered.forEach((task) => {
+          const card = document.createElement("div");
+          card.className = task.completed ? "task-card done" : "task-card";
+          card.innerHTML = `
+          <div class="task-top">
+            <div
+              class="check"
+              onclick="toggleTask(${task.id})"
+            >
+              ${task.completed ? "✓" : ""}
+            </div>
+            <div class="task-text">
+              ${task.text}
+            </div>
+          </div>
+          <div class="task-actions">
+            <button
+              class="edit-btn"
+              onclick="editTask(${task.id})"
+            >
+              Editar
+            </button>
+            <button
+              class="delete-btn"
+              onclick="deleteTask(${task.id})"
+            >
+              Excluir
+            </button>
+          </div>
+        `;
+          taskList.appendChild(card);
+        });
+      }
+      function toggleTask(id) {
+        tasks = tasks.map((task) => {
+          if (task.id === id) {
+            return {
+              ...task,
+              completed: !task.completed,
+            };
+          }
+          return task;
+        });
+        saveTasks();
+        renderTasks();
+      }
+      function editTask(id) {
+        const task = tasks.find((task) => task.id === id);
+        const newText = prompt("Editar tarefa", task.text);
+        if (newText === null || newText.trim() === "") {
+          return;
+        }
+        task.text = newText.trim();
+        saveTasks();
+        renderTasks();
+      }
+      function deleteTask(id) {
+        tasks = tasks.filter((task) => task.id !== id);
+        saveTasks();
+        renderTasks();
+      }
+      function filterTasks(type, button) {
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        button.classList.add("active");
+        switch (type) {
+          case "all":
+            renderTasks(tasks);
+            break;
+          case "pending":
+            renderTasks(tasks.filter((task) => !task.completed));
+            break;
+          case "completed":
+            renderTasks(tasks.filter((task) => task.completed));
+            break;
+        }
+      }
+      function saveTasks() {
+        localStorage.setItem("puicaTasks", JSON.stringify(tasks));
+      }
+    </script>
+  </body>
+</html>
